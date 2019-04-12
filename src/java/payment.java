@@ -175,6 +175,8 @@ public class payment extends HttpServlet {
                         rd = req.getRequestDispatcher("payment.jsp");
                     }
                 } else {
+                    System.out.println("Variables: " + cfor + ", " + cam + ", " + cname + ", " + cexp + ", " + code + ", " + loc);
+
                     // <editor-fold desc="Amount Validation">
                     ResultSet amountResult = st.executeQuery("select * from transaction where uname='" + username1 + "' order by date1 desc limit 10");
                     float totalAmount = 0;
@@ -221,6 +223,40 @@ public class payment extends HttpServlet {
 
                     if (!siteFound) {
                         System.out.println("Invlaid Site. Otp required");
+                        Random rnd = new Random();
+                        int n = 1000 + rnd.nextInt(9000);
+                        String n3 = String.valueOf(n);
+                        sn.setAttribute("cfor", cfor);
+                        sn.setAttribute("cam", cam);
+                        sn.setAttribute("cname", cname);
+                        sn.setAttribute("cnum", cnum);
+                        sn.setAttribute("cexp", cexp);
+                        sn.setAttribute("code", code);
+                        sn.setAttribute("mac", getMacAddress());
+                        sn.setAttribute("ccloc", loc);
+                        sn.setAttribute("otp", n3);
+                        MobileOtp.sendSMS(n3);
+                        rd = req.getRequestDispatcher("otp.jsp");
+                        rd.forward(req, res);
+                        return;
+                    }
+
+                    // <editor-fold>
+                    // <editor-fold desc="Location Validation">
+                    ResultSet locationResult = st.executeQuery("select * from transaction where uname='" + username1 + "' order by date1 desc");
+                    String currentLocation = loc;
+                    boolean locationExists = false;
+
+                    while (locationResult.next()) {
+                        String prevLocation = locationResult.getString("place1");
+                        if (prevLocation.equals(currentLocation)) {
+                            locationExists = true;
+                            break;
+                        }
+                    }
+
+                    if (!locationExists) {
+                        System.out.println("Invlaid Location. Otp required");
                         Random rnd = new Random();
                         int n = 1000 + rnd.nextInt(9000);
                         String n3 = String.valueOf(n);
