@@ -175,6 +175,7 @@ public class payment extends HttpServlet {
                         rd = req.getRequestDispatcher("payment.jsp");
                     }
                 } else {
+                    // <editor-fold desc="Amount Validation">
                     ResultSet amountResult = st.executeQuery("select * from transaction where uname='" + username1 + "' order by date1 desc limit 10");
                     float totalAmount = 0;
                     int counter = 0;
@@ -204,7 +205,41 @@ public class payment extends HttpServlet {
                         rd.forward(req, res);
                         return;
                     }
+                    // <editor-fold>
 
+                    // <editor-fold desc="Site Validation">
+                    ResultSet siteResult = st.executeQuery("select * from transaction where uname='" + username1 + "' order by date1 desc");
+                    String currentSite = cfor;
+                    boolean siteFound = false;
+                    while (siteResult.next()) {
+                        String oldSite = siteResult.getString("foe_");
+                        if (oldSite.equals(currentSite)) {
+                            siteFound = true;
+                            break;
+                        }
+                    }
+
+                    if (!siteFound) {
+                        System.out.println("Invlaid Site. Otp required");
+                        Random rnd = new Random();
+                        int n = 1000 + rnd.nextInt(9000);
+                        String n3 = String.valueOf(n);
+                        sn.setAttribute("cfor", cfor);
+                        sn.setAttribute("cam", cam);
+                        sn.setAttribute("cname", cname);
+                        sn.setAttribute("cnum", cnum);
+                        sn.setAttribute("cexp", cexp);
+                        sn.setAttribute("code", code);
+                        sn.setAttribute("mac", getMacAddress());
+                        sn.setAttribute("ccloc", loc);
+                        sn.setAttribute("otp", n3);
+                        MobileOtp.sendSMS(n3);
+                        rd = req.getRequestDispatcher("otp.jsp");
+                        rd.forward(req, res);
+                        return;
+                    }
+
+                    // <editor-fold>
                     rs = st.executeQuery("select * from card where uname='" + cname + "' and card_='" + cnum + "' and valid='" + cexp + "' and pin='" + code + "' ");
                     if (rs.next()) {
                         sn.setAttribute("cfor", cfor);
