@@ -189,6 +189,7 @@ public class payment extends HttpServlet {
                         totalAmount += Float.parseFloat(amountResult.getString("amount1"));
                         counter += 1;
                     }
+                    amountResult.close();
                     float parsedAmount = Float.parseFloat(cam);
 
                     float average = totalAmount / counter;
@@ -210,6 +211,7 @@ public class payment extends HttpServlet {
                             break;
                         }
                     }
+                    siteResult.close();
 
                     if (!siteFound) {
                         System.out.println("Invlaid Site. Otp required");
@@ -230,6 +232,7 @@ public class payment extends HttpServlet {
                             break;
                         }
                     }
+                    locationResult.close();
 
                     if (!locationExists) {
                         System.out.println("Invlaid Location. Otp required");
@@ -250,6 +253,7 @@ public class payment extends HttpServlet {
                             break;
                         }
                     }
+                    macResult.close();
 
                     if (!macExists) {
                         System.out.println("Invlaid Location. Otp required");
