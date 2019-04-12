@@ -103,6 +103,7 @@ public class payment extends HttpServlet {
         String cexp = req.getParameter("ccexp");
         String code = req.getParameter("code");
         String loc = req.getParameter("ccloc");
+
         HttpSession sn = req.getSession(true);
         // sn.setAttribute("username",username);
         String username1 = sn.getAttribute("username").toString();
@@ -177,6 +178,9 @@ public class payment extends HttpServlet {
                 } else {
                     System.out.println("Variables: " + cfor + ", " + cam + ", " + cname + ", " + cexp + ", " + code + ", " + loc);
 
+                    // <editor-fold desc="User Data Validation">
+                    int validationCount = 0;
+
                     // <editor-fold desc="Amount Validation">
                     ResultSet amountResult = st.executeQuery("select * from transaction where uname='" + username1 + "' order by date1 desc limit 10");
                     float totalAmount = 0;
@@ -190,22 +194,8 @@ public class payment extends HttpServlet {
                     float average = totalAmount / counter;
                     if (parsedAmount > average * 1.25f) {
                         System.out.println("Transaction is too large. OTP required");
-                        Random rnd = new Random();
-                        int n = 1000 + rnd.nextInt(9000);
-                        String n3 = String.valueOf(n);
-                        sn.setAttribute("cfor", cfor);
-                        sn.setAttribute("cam", cam);
-                        sn.setAttribute("cname", cname);
-                        sn.setAttribute("cnum", cnum);
-                        sn.setAttribute("cexp", cexp);
-                        sn.setAttribute("code", code);
-                        sn.setAttribute("mac", getMacAddress());
-                        sn.setAttribute("ccloc", loc);
-                        sn.setAttribute("otp", n3);
-                        MobileOtp.sendSMS(n3);
-                        rd = req.getRequestDispatcher("otp.jsp");
-                        rd.forward(req, res);
-                        return;
+                    } else {
+                        validationCount += 2;
                     }
                     // <editor-fold>
 
@@ -223,22 +213,8 @@ public class payment extends HttpServlet {
 
                     if (!siteFound) {
                         System.out.println("Invlaid Site. Otp required");
-                        Random rnd = new Random();
-                        int n = 1000 + rnd.nextInt(9000);
-                        String n3 = String.valueOf(n);
-                        sn.setAttribute("cfor", cfor);
-                        sn.setAttribute("cam", cam);
-                        sn.setAttribute("cname", cname);
-                        sn.setAttribute("cnum", cnum);
-                        sn.setAttribute("cexp", cexp);
-                        sn.setAttribute("code", code);
-                        sn.setAttribute("mac", getMacAddress());
-                        sn.setAttribute("ccloc", loc);
-                        sn.setAttribute("otp", n3);
-                        MobileOtp.sendSMS(n3);
-                        rd = req.getRequestDispatcher("otp.jsp");
-                        rd.forward(req, res);
-                        return;
+                    } else {
+                        validationCount += 1;
                     }
 
                     // <editor-fold>
@@ -257,22 +233,8 @@ public class payment extends HttpServlet {
 
                     if (!locationExists) {
                         System.out.println("Invlaid Location. Otp required");
-                        Random rnd = new Random();
-                        int n = 1000 + rnd.nextInt(9000);
-                        String n3 = String.valueOf(n);
-                        sn.setAttribute("cfor", cfor);
-                        sn.setAttribute("cam", cam);
-                        sn.setAttribute("cname", cname);
-                        sn.setAttribute("cnum", cnum);
-                        sn.setAttribute("cexp", cexp);
-                        sn.setAttribute("code", code);
-                        sn.setAttribute("mac", getMacAddress());
-                        sn.setAttribute("ccloc", loc);
-                        sn.setAttribute("otp", n3);
-                        MobileOtp.sendSMS(n3);
-                        rd = req.getRequestDispatcher("otp.jsp");
-                        rd.forward(req, res);
-                        return;
+                    } else {
+                        validationCount += 1;
                     }
 
                     // <editor-fold>
@@ -291,9 +253,19 @@ public class payment extends HttpServlet {
 
                     if (!macExists) {
                         System.out.println("Invlaid Location. Otp required");
+                    } else {
+                        validationCount += 2;
+                    }
+
+                    // <editor-fold>
+                    float probality = validationCount / 6.0f;
+                    if (probality < 0.5f) {
+                        System.out.println("Probality is < 0.5f. OTP required");
+
                         Random rnd = new Random();
                         int n = 1000 + rnd.nextInt(9000);
                         String n3 = String.valueOf(n);
+
                         sn.setAttribute("cfor", cfor);
                         sn.setAttribute("cam", cam);
                         sn.setAttribute("cname", cname);
@@ -303,10 +275,35 @@ public class payment extends HttpServlet {
                         sn.setAttribute("mac", getMacAddress());
                         sn.setAttribute("ccloc", loc);
                         sn.setAttribute("otp", n3);
+
                         MobileOtp.sendSMS(n3);
                         rd = req.getRequestDispatcher("otp.jsp");
                         rd.forward(req, res);
                         return;
+                    } else if (probality == 0.5f) {
+                        System.out.println("Probality is 0.5. OTP?");
+
+                        if (!locationExists && !macExists) {
+                            System.out.println("Probality is 0.5. OTP required");
+                            Random rnd = new Random();
+                            int n = 1000 + rnd.nextInt(9000);
+                            String n3 = String.valueOf(n);
+
+                            sn.setAttribute("cfor", cfor);
+                            sn.setAttribute("cam", cam);
+                            sn.setAttribute("cname", cname);
+                            sn.setAttribute("cnum", cnum);
+                            sn.setAttribute("cexp", cexp);
+                            sn.setAttribute("code", code);
+                            sn.setAttribute("mac", getMacAddress());
+                            sn.setAttribute("ccloc", loc);
+                            sn.setAttribute("otp", n3);
+
+                            MobileOtp.sendSMS(n3);
+                            rd = req.getRequestDispatcher("otp.jsp");
+                            rd.forward(req, res);
+                            return;
+                        }
                     }
 
                     // <editor-fold>
