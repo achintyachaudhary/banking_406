@@ -1,0 +1,130 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+/**
+ *
+ * @author Satheeshkumar S
+ */
+@WebServlet(urlPatterns = {"/login"})
+public class login extends HttpServlet {
+ String username="";
+    String password="";
+    String type1="";
+    Connection con=null;
+    Statement st=null;
+    ResultSet rs=null;
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet login</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet login at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse res)
+            throws ServletException, IOException {
+       username = req.getParameter("uname");
+        password = req.getParameter("pwd");
+	//type1 = req.getParameter("type1");
+	HttpSession sn = req.getSession(true);
+     sn.setAttribute("username",username);
+      
+      
+      System.out.println("username : " +username);
+      System.out.println("otp : " +password);
+      System.out.println("type1 : " +type1);
+		RequestDispatcher rd = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bank","root","root");
+            st = con.createStatement();
+            rs = st.executeQuery("select * from account where uname='"+username+"' && pwd='"+password+"'");
+            if(rs.next()) {
+                sn.setAttribute("balance",rs.getString(12));
+                sn.setAttribute("type",rs.getString(11));
+                sn.setAttribute("mailid",rs.getString(3));
+                rd=req.getRequestDispatcher("balance.jsp");
+                
+				//sn.setAttribute("dpm",department);
+            } else {
+
+               rd=req.getRequestDispatcher("failure.jsp");
+	        }
+	     rd.forward(req,res);
+        }
+        catch(Exception e2)
+         {
+            System.out.println("Exception : "+e2.toString());
+        }
+    }
+
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+
+}
