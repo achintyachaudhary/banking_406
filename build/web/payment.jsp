@@ -1,8 +1,4 @@
-<%-- 
-    Document   : balance
-    Created on : 10 Feb, 2019, 1:09:56 AM
-    Author     : Satheeshkumar S
---%>
+
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -250,7 +246,7 @@ function showPosition(position) {
                                                     </div>
                                                 </div>
                                                 <div class="col-6">
-                                                    <label for="x_card_code" class="control-label mb-1">Security code</label>
+                                                    <label for="x_card_code" class="control-label mb-1">CVV Number</label>
                                                     <div class="input-group">
                                                         <input id="x_card_code" name="code" type="tel" class="form-control cc-cvc" value="" data-val="true" data-val-required="Please enter the security code"
                                                             data-val-cc-cvc="Please enter a valid security code" autocomplete="off">
@@ -283,7 +279,7 @@ function showPosition(position) {
                     <div class="row">
                         <div class="col-md-12">
                             <div class="copyright">
-                                <p>Copyright © 2019. All rights reserved. Template by <a href="#">Bank</a>.</p>
+                                <p>Copyright © 2019. SRM Pvt Bank Ltd.</p>
                             </div>
                         </div>
                     </div>
@@ -325,4 +321,3 @@ function showPosition(position) {
 </body>
 
 </html>
-<!-- end document-->

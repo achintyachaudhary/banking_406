@@ -99,8 +99,8 @@ String username="";
             st1 = con.createStatement();
             rs = st1.executeQuery("select amount from account where uname='"+username1+"'");
             if(rs.next()) {
-                String aa=rs.getString(1);
-                String bal=String.valueOf(Integer.parseInt(aa)+Integer.parseInt(username));
+                Float aa=Float.parseFloat(rs.getString(1));
+                String bal=String.valueOf(aa + Float.parseFloat(username));
                int  add=st1.executeUpdate("update account set amount='"+bal+"' where uname='"+username1+"'");
           
                 sn.setAttribute("balance",bal);
