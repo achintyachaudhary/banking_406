@@ -1,10 +1,4 @@
-<%-- 
-    Document   : balance
-    Created on : 10 Feb, 2019, 1:09:56 AM
-    Author     : Satheeshkumar S
---%>
-
-<%@page import="java.sql.*"%>
+    <%@page import="java.sql.*"%>
 <%@page import="java.io.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -155,7 +149,6 @@
                                     <div class="card-body card-block">
                                          <%
                                         try {
-                                            //String username = "username";
 							String username, user;
         PreparedStatement ps;
         ResultSet rs;
@@ -241,7 +234,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="copyright">
-                                <p>Copyright © 2019. All rights reserved. Template by <a href="#">Bank</a>.</p>
+                                <p>Copyright © 2019. SRM Bank Pvt Ltd.</p>
                             </div>
                         </div>
                     </div>

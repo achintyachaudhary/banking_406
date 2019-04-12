@@ -151,7 +151,7 @@
                                             <!--NOTE Unable to force user to input valid value-->
                                             <div class="form-group">
                                                 <label for="cc-payment" class="control-label mb-1">Payment amount</label>
-                                                <input required="true" name="cc-payment" type="text" class="form-control" aria-required="true" aria-invalid="false" value="100" >
+                                                <input  name="cc-payment" type="text" required class="form-control" aria-required="true" aria-invalid="false" value="100" >
                                             </div>
                                            
                                             <div>

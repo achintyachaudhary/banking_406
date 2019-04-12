@@ -61,7 +61,7 @@ public class deposit extends HttpServlet {
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bank","root","root");
             st1 = con.createStatement();
             rs = st1.executeQuery("select amount from account where uname='"+username1+"'");
-            if(rs.next()) {
+            if(rs.next() && amount_added!="") {
                 Float aa=Float.parseFloat(rs.getString(1));
                 String bal=String.valueOf(aa + Float.parseFloat(amount_added));
                int  add=st1.executeUpdate("update account set amount='"+bal+"' where uname='"+username1+"'");
@@ -70,8 +70,7 @@ public class deposit extends HttpServlet {
                 amount_added = "";
                 res.sendRedirect("balance.jsp");
             } else {
-
-               rd=req.getRequestDispatcher("failure.jsp");
+               res.sendRedirect("deposit.jsp");
 	        }
 	     rd.forward(req,res);
         }
