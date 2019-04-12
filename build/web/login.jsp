@@ -1,9 +1,3 @@
-<%-- 
-    Document   : login
-    Created on : 10 Feb, 2019, 12:52:33 AM
-    Author     : Satheeshkumar S
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html lang="en">
 
@@ -40,7 +34,7 @@
     <link href="css/theme.css" rel="stylesheet" media="all">
 
 </head>
-
+    
 <body class="animsition">
     <div class="page-wrapper">
         <div class="page-content--bge5">
@@ -54,17 +48,18 @@
                             <form action="login" method="post">
                                 <div class="form-group">
                                     <label>User Name</label>
-                                    <input class="au-input au-input--full" type="text" name="uname" placeholder="User Name">
+                                    <input class="au-input au-input--full" required type="text" name="uname" placeholder="User Name">
                                 </div>
                                 <div class="form-group">
                                     <label>Password</label>
-                                    <input class="au-input au-input--full" type="password" name="pwd" placeholder="Password">
+                                    <input class="au-input au-input--full" required="true" type="password" name="pwd" placeholder="Password">
                                 </div>
                                 
                                 <button class="au-btn au-btn--block au-btn--green m-b-20" type="submit">sign in</button>
                                 <div class="social-login-content">
-                                   
+                                <span style="color:red;">${errMsg}</span>
                                 </div>
+
                             </form>
                             <div class="register-link">
                                 <p>
@@ -79,6 +74,7 @@
         </div>
 
     </div>
+
 
     <!-- Jquery JS-->
     <script src="vendor/jquery-3.2.1.min.js"></script>

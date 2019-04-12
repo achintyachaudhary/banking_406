@@ -52,7 +52,6 @@ public class login extends HttpServlet {
             throws ServletException, IOException {
         username = req.getParameter("uname");
         password = req.getParameter("pwd");
-	//type1 = req.getParameter("type1");
 	HttpSession sn = req.getSession(true);
         sn.setAttribute("username",username);
       
@@ -70,12 +69,11 @@ public class login extends HttpServlet {
                 sn.setAttribute("balance",rs.getString(12));
                 sn.setAttribute("type",rs.getString(11));
                 sn.setAttribute("mailid",rs.getString(3));
-                rd=req.getRequestDispatcher("balance.jsp");
-                
-				
-            } else {
-
-               rd=req.getRequestDispatcher("login.jsp");
+                rd=req.getRequestDispatcher("balance.jsp");		
+            }else{
+                    req.setAttribute("errMsg", "username and password are incorrect");
+                    RequestDispatcher rdd = req.getRequestDispatcher("login.jsp");
+                    rdd.forward(req, res); 
 	        }
 	     rd.forward(req,res);
         }
