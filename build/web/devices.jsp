@@ -65,7 +65,7 @@
                                 <i class="fas fa-shopping-basket"></i>Payment</a>
                         </li>
                         <li>
-                            <a href="devices.jsp">
+                            <a href="deposit.jsp">
                                 <i class="fas fa-chart-bar"></i>Your Devices</a>
                            
                         </li>
@@ -135,9 +135,46 @@
                 </div>
             </section>
             <!-- END BREADCRUMB-->
-
+            
             <!-- STATISTIC-->
             <div class="main-content">
+                <section class="statistic">
+                <div class="section__content section__content--p30">
+                    <div class="container-fluid">
+                        <div class="row">
+                           
+                          <div class="col-lg-6">
+                                <div class="card">
+                                    
+                                    <div class="card-body">
+                                        <div class="card-title">
+                                            <h3 class="text-center title-2">Add Trusted Device</h3>
+                                        </div>
+                                        <hr>
+                                        <form action="payment" method="post" novalidate="novalidate">
+                                            <div class="form-group">
+                                                <label for="cc-payment" class="control-label mb-1">Your MAC Address</label>
+                                                <input id="cc-pament" name="ccpayment" type="text" class="form-control" aria-required="true" aria-invalid="false" value="">
+                                            </div>
+                                           
+                                               
+                                            </div>
+                                            <div>
+                                                <button id="payment-button" type="submit" class="btn btn-lg btn-info btn-block">
+                                                    <i class="fa fa-lock fa-lg"></i>&nbsp;
+                                                    <span id="payment-button-amount">Pay</span>
+                                                    <span id="payment-button-sending" style="display:none;">Sending…</span>
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
                 <div class="section__content section__content--p30">
                     <div class="container-fluid">
                         <div class="row">
@@ -150,10 +187,9 @@
                                     <table class="table table-borderless table-striped table-earning">
                                         <thead>
                                             <tr>
-                                                <th>transaction ID</th>
-                                                <th>Date</th>
-                                                <th>Merchant</th>
-                                                <th class="text-right">Amount</th>
+                                                <th>Added Date</th>
+                                                <th>MAC Address</th>
+                                                
                                                
                                             </tr>
                                         </thead>
@@ -174,18 +210,16 @@
                                             rs = st.executeQuery(query);
 
                                             while (rs.next()) {
-                                                String tid = rs.getString(2);
+                                                String mac = rs.getString(6);
                                                 String date1 = rs.getString(4);
-                                                String for1 = rs.getString(3);
-						String amount = rs.getString(5);
+                                                
 												 
                                                 
                                     %>
                                             <tr>
-                                                <td><%=tid%></td>
                                                 <td><%=date1%></td>
-                                                <td><%=for1%></td>
-                                                <td class="text-right"><%=amount%></td>
+                                                <td><%=mac%></td>
+                                                
                                                
                                             </tr>
                                              <%

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -21,10 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import sun.misc.BASE64Encoder;
 
-/**
- *
- * @author Satheeshkumar S
- */
 @WebServlet(urlPatterns = {"/reg"})
 public class reg extends HttpServlet {
 Connection con=null;
@@ -32,15 +23,7 @@ Connection con=null;
     ResultSet rs=null;
     Statement st1=null;
     RequestDispatcher rd=null;
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -58,36 +41,19 @@ Connection con=null;
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
           
             String username= req.getParameter("username");
-          String password= req.getParameter("password");
-           
+            String password= req.getParameter("password");
         	String name= req.getParameter("name1");
         	
 		
@@ -103,7 +69,7 @@ Connection con=null;
                      }
                else
                      {
-               // String type1= "user";
+               
         	
 
 	try {
@@ -120,18 +86,13 @@ Connection con=null;
             rd=req.getRequestDispatcher("nextpage.jsp");
             rd.forward(req,res);
         } catch(Exception e2) {
-            // rd=req.getRequestDispatcher("failure.jsp");
             rd=req.getRequestDispatcher("register.jsp");
             rd.forward(req,res);
         }
                      }
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
+   
     @Override
     public String getServletInfo() {
         return "Short description";

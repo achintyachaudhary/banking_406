@@ -47,11 +47,7 @@
     <div class="page-wrapper">
         <!-- MENU SIDEBAR-->
         <aside class="menu-sidebar2">
-            <div class="logo">
-                <a href="#">
-                    <img src="images/icon/logo-mini.png" alt="Cool Admin" />
-                </a>
-            </div>
+            
             <div class="menu-sidebar2__content js-scrollbar1">
                 <div class="account2">
                     <div class="image img-cir img-120">
@@ -71,6 +67,11 @@
                         <li>
                             <a href="payment.jsp">
                                 <i class="fas fa-shopping-basket"></i>Payment</a>
+                        </li>
+                        <li>
+                            <a href="devices.jsp">
+                                <i class="fas fa-chart-bar"></i>Your Devices</a>
+                           
                         </li>
                        <li>
                             <a href="deposit.jsp">

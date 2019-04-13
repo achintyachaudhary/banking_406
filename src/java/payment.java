@@ -126,6 +126,7 @@ public class payment extends HttpServlet {
 
                 //sn.setAttribute("dpm",department);
             }
+//            rs.close();
             if (a < 1) {
 
                 rs = st.executeQuery("select * from card where uname='" + cname + "' and card_='" + cnum + "' and valid='" + cexp + "' and pin='" + code + "' ");
@@ -155,7 +156,7 @@ public class payment extends HttpServlet {
                     out.println("</script>");
                     rd = req.getRequestDispatcher("payment.jsp");
                 }
-
+//                rs.close();
             } else {
                 rs1 = st.executeQuery("select * from transaction where uname='" + cname + "' and mac1='" + getMacAddress() + "' and place1='" + loc + "' ");
                 if (rs1.next()) {
@@ -175,6 +176,7 @@ public class payment extends HttpServlet {
                         out.println("</script>");
                         rd = req.getRequestDispatcher("payment.jsp");
                     }
+//                    rs.close();
                 } else {
                     System.out.println("Variables: " + cfor + ", " + cam + ", " + cname + ", " + cexp + ", " + code + ", " + loc);
 
@@ -189,7 +191,7 @@ public class payment extends HttpServlet {
                         totalAmount += Float.parseFloat(amountResult.getString("amount1"));
                         counter += 1;
                     }
-                    amountResult.close();
+//                    amountResult.close();
                     float parsedAmount = Float.parseFloat(cam);
 
                     float average = totalAmount / counter;
@@ -211,7 +213,7 @@ public class payment extends HttpServlet {
                             break;
                         }
                     }
-                    siteResult.close();
+//                    siteResult.close();
 
                     if (!siteFound) {
                         System.out.println("Invlaid Site. Otp required");
@@ -232,7 +234,7 @@ public class payment extends HttpServlet {
                             break;
                         }
                     }
-                    locationResult.close();
+//                    locationResult.close();
 
                     if (!locationExists) {
                         System.out.println("Invlaid Location. Otp required");
@@ -253,7 +255,7 @@ public class payment extends HttpServlet {
                             break;
                         }
                     }
-                    macResult.close();
+//                    macResult.close();
 
                     if (!macExists) {
                         System.out.println("Invlaid Location. Otp required");
@@ -335,9 +337,10 @@ public class payment extends HttpServlet {
                         out.println("</script>");
                         rd = req.getRequestDispatcher("payment.jsp");
                     }
+//                    rs.close();
                 }
             }
-
+//            rs1.close();
             rd.forward(req, res);
         } catch (Exception e2) {
             System.out.println("Exception : " + e2.toString());

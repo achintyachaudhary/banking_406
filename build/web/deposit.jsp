@@ -66,6 +66,10 @@
                             <a href="payment.jsp">
                                 <i class="fas fa-shopping-basket"></i>Payment</a>
                         </li>
+                         <li>
+                            <a href="devices.jsp">
+                                <i class="fas fa-shopping-basket"></i>Your Devices</a>
+                        </li>
                        <li>
                             <a href="deposit.jsp">
                                 <i class="fas fa-chart-bar"></i>Deposit</a>
