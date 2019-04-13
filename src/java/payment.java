@@ -139,11 +139,11 @@ public class payment extends HttpServlet {
                     sn.setAttribute("mac", getMacAddress());
                     sn.setAttribute("ccloc", loc);
                     Random rnd = new Random();
-                    int n = 1; // TODO: Change it back to Random.NextInt()
-                    //int n1 = 100000 + rnd.nextInt(900000);
+                   // int n = 1; // TODO: Change it back to Random.NextInt()
+                    int n = 100000 + rnd.nextInt(900000);
                     String n3 = String.valueOf(n);
                     sn.setAttribute("otp", n3);
-                    MobileOtp.sendSMS(n3);
+                    MobileOtp.sendSMS(n3, username1);
 
                     rd = req.getRequestDispatcher("otp.jsp");
 
@@ -166,6 +166,13 @@ public class payment extends HttpServlet {
                         int n = 100000 + rnd.nextInt(900000);
                         st1 = con.createStatement();
                         int add = st1.executeUpdate("insert into transaction  values('" + username1 + "','" + String.valueOf(n) + "','" + cfor + "','" + dtf.format(now) + "','" + cam + "','" + getMacAddress() + "','" + loc + "')");
+                        ResultSet queryResult = st1.executeQuery("select amount from account where uname='" + username1 + "'");
+                        queryResult.next();
+                        float amount = Float.parseFloat(queryResult.getString("amount"));
+                        System.out.println(amount);
+                        amount -= Float.parseFloat(cam);
+                        System.out.println(amount);
+                        st1.executeUpdate("update account set amount='" + String.valueOf(amount) + "' where uname='" + username1 + "'");
                         rd = req.getRequestDispatcher("error.jsp");
                     } else {
                         out.println("<script type=\"text/javascript\">");
@@ -192,7 +199,7 @@ public class payment extends HttpServlet {
                     float parsedAmount = Float.parseFloat(cam);
 
                     float average = totalAmount / counter;
-                    if (parsedAmount > average * 1.25f) {
+                    if (parsedAmount > average * 1.75f) {
                         System.out.println("Transaction is too large. OTP required");
                     } else {
                         validationCount += 2;
@@ -279,7 +286,7 @@ public class payment extends HttpServlet {
                         sn.setAttribute("ccloc", loc);
                         sn.setAttribute("otp", n3);
 
-                        MobileOtp.sendSMS(n3);
+                        MobileOtp.sendSMS(n3, username1);
                         rd = req.getRequestDispatcher("otp.jsp");
                         rd.forward(req, res);
                         return;
@@ -302,7 +309,7 @@ public class payment extends HttpServlet {
                             sn.setAttribute("ccloc", loc);
                             sn.setAttribute("otp", n3);
 
-                            MobileOtp.sendSMS(n3);
+                            MobileOtp.sendSMS(n3, username1);
                             rd = req.getRequestDispatcher("otp.jsp");
                             rd.forward(req, res);
                             return;
@@ -325,7 +332,7 @@ public class payment extends HttpServlet {
                         //int n1 = 100000 + rnd.nextInt(900000);
                         String n3 = String.valueOf(n);
                         sn.setAttribute("otp", n3);
-                        MobileOtp.sendSMS(n3);
+                        MobileOtp.sendSMS(n3, username1);
                         rd = req.getRequestDispatcher("otp.jsp");
                     } else {
                         out.println("<script type=\"text/javascript\">");

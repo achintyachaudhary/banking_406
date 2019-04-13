@@ -128,6 +128,7 @@ public class otp extends HttpServlet {
 
                     String pt1 = rs.getString(5).toString();
                     if (pt.contains(pt1)) {
+                        System.out.println("Updating Amount in user database");
                         st1 = con.createStatement();
                         int add = st1.executeUpdate("insert into transaction  values('" + username1 + "','" + String.valueOf(n) + "','" + cfor + "','" + dtf.format(now) + "','" + cam + "','" + mac + "','" + loc + "')");
                         ResultSet queryResult = st1.executeQuery("select amount from account where uname='" + username1 + "'");
@@ -147,12 +148,14 @@ public class otp extends HttpServlet {
                 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
                 LocalDateTime now = LocalDateTime.now();
                 System.out.println(dtf.format(now));
+                System.out.println("Updating User amount");
 
                 rs = st.executeQuery("select * from card where uname='" + cname + "' and card_='" + cnum + "' and valid='" + cexp + "' and pin='" + code + "' ");
                 if (rs.next()) {
 
                     String pt1 = rs.getString(5).toString();
                     if (pt.contains(pt1)) {
+                        System.out.println("Updating Amount in user database");
                         st1 = con.createStatement();
                         int add = st1.executeUpdate("insert into transaction  values('" + username1 + "','" + String.valueOf(n) + "','" + cfor + "','" + dtf.format(now) + "','" + cam + "','" + mac + "','" + loc + "')");
                         ResultSet queryResult = st1.executeQuery("select amount from account where uname='" + username1 + "'");
