@@ -1,8 +1,3 @@
-<%-- 
-    Document   : balance
-    Created on : 10 Feb, 2019, 1:09:56 AM
-    Author     : Satheeshkumar S
---%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>

@@ -1,4 +1,3 @@
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -13,16 +12,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
 @WebServlet(urlPatterns = {"/login"})
 public class login extends HttpServlet {
-    String username="";
-    String password="";
-    String type1="";
-    Connection con=null;
-    Statement st=null;
-    ResultSet rs=null;
-    
+
+    String username = "";
+    String password = "";
+    String type1 = "";
+    Connection con = null;
+    Statement st = null;
+    ResultSet rs = null;
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -31,7 +30,7 @@ public class login extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet login</title>");            
+            out.println("<title>Servlet login</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet login at " + request.getContextPath() + "</h1>");
@@ -39,7 +38,6 @@ public class login extends HttpServlet {
             out.println("</html>");
         }
     }
-
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -52,37 +50,32 @@ public class login extends HttpServlet {
             throws ServletException, IOException {
         username = req.getParameter("uname");
         password = req.getParameter("pwd");
-	HttpSession sn = req.getSession(true);
-        sn.setAttribute("username",username);
-      
-      
-      System.out.println("username : " +username);
-      System.out.println("otp : " +password);
-      System.out.println("type1 : " +type1);
-		RequestDispatcher rd = null;
+        HttpSession sn = req.getSession(true);
+        sn.setAttribute("username", username);
+
+        System.out.println("username : " + username);
+        System.out.println("otp : " + password);
+        System.out.println("type1 : " + type1);
+        RequestDispatcher rd = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bank","root","root");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bank", "root", "root");
             st = con.createStatement();
-            rs = st.executeQuery("select * from account where uname='"+username+"' && pwd='"+password+"'");
-            if(rs.next()) {
-                sn.setAttribute("balance",rs.getString(12));
-                sn.setAttribute("type",rs.getString(11));
-                sn.setAttribute("mailid",rs.getString(3));
-                rd=req.getRequestDispatcher("balance.jsp");		
-            }else{
-                    req.setAttribute("errMsg", "username and password are incorrect");
-                    RequestDispatcher rdd = req.getRequestDispatcher("login.jsp");
-                    rdd.forward(req, res); 
-	        }
-	     rd.forward(req,res);
-        }
-        catch(Exception e2)
-         {
-            System.out.println("Exception : "+e2.toString());
+            rs = st.executeQuery("select * from account where uname='" + username + "' && pwd='" + password + "'");
+            if (rs.next()) {
+                sn.setAttribute("balance", rs.getString(12));
+                sn.setAttribute("type", rs.getString(11));
+                rd = req.getRequestDispatcher("balance.jsp");
+            } else {
+                req.setAttribute("errMsg", "username and password are incorrect");
+                RequestDispatcher rdd = req.getRequestDispatcher("login.jsp");
+                rdd.forward(req, res);
+            }
+            rd.forward(req, res);
+        } catch (Exception e2) {
+            System.out.println("Exception : " + e2.toString());
         }
     }
-
 
     @Override
     public String getServletInfo() {

@@ -1,9 +1,3 @@
-<%-- 
-    Document   : login
-    Created on : 10 Feb, 2019, 12:52:33 AM
-    Author     : Satheeshkumar S
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html lang="en">
 

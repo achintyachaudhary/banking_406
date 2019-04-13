@@ -1,8 +1,3 @@
-<%-- 
-    Document   : register
-    Created on : 10 Feb, 2019, 12:52:13 AM
-    Author     : Satheeshkumar S
---%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>

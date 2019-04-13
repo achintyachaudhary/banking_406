@@ -122,8 +122,8 @@ Connection con=null;
            // int add1=st1.executeUpdate("insert into usersec values('"+username+"','"+sb.toString()+"','"+dec1.mod(bi)+"')");
           
             
-            rd=req.getRequestDispatcher("balance.jsp");
-            rd.forward(req,res);
+                rd=req.getRequestDispatcher("balance.jsp");
+                rd.forward(req,res);
         } catch(Exception e2) {
              rd=req.getRequestDispatcher("failure.jsp");
         }

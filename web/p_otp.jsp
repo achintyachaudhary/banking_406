@@ -1,8 +1,3 @@
-<%-- 
-    Document   : login
-    Created on : 10 Feb, 2019, 12:52:33 AM
-    Author     : Satheeshkumar S
---%>
 
 <%@page import="java.util.Random"%>
 <%@page import="java.sql.DriverManager"%>

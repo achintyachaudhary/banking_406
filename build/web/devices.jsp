@@ -138,7 +138,7 @@
             
             <!-- STATISTIC-->
             <div class="main-content">
-                <section class="statistic">
+<!--                <section class="statistic">
                 <div class="section__content section__content--p30">
                     <div class="container-fluid">
                         <div class="row">
@@ -151,9 +151,9 @@
                                             <h3 class="text-center title-2">Add Trusted Device</h3>
                                         </div>
                                         <hr>
-                                        <form action="payment" method="post" novalidate="novalidate">
+                                        <form action="NewMac" method="post" novalidate="novalidate">
                                             <div class="form-group">
-                                                <label for="cc-payment" class="control-label mb-1">Your MAC Address</label>
+                                                <label for="new_mac_address" class="control-label mb-1">Your MAC Address</label>
                                                 <input id="cc-pament" name="ccpayment" type="text" class="form-control" aria-required="true" aria-invalid="false" value="">
                                             </div>
                                            
@@ -173,7 +173,7 @@
                         </div>
                     </div>
                 </div>
-            </section>
+            </section>-->
 
                 <div class="section__content section__content--p30">
                     <div class="container-fluid">
